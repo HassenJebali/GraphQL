@@ -16,7 +16,7 @@ src/
 ├── main/
 │ ├── java/
 │ │ └── com/example/
-│ │ ├── graphql/
+│ │ ├── **graphql**/
 │ │ │ ├── Endpoint.java
 │ │ │ ├── Query.java
 │ │ │ └── Mutation.java
