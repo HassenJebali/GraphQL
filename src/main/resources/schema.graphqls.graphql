@@ -1,0 +1,80 @@
+enum TypeModule {
+    TRANSVERSAL
+    PROFESSIONNEL
+    RECHERCHE
+}
+
+type Module {
+    matricule: String
+    nom: String
+    coefficient: Int
+    volumeHoraire: Int
+    type: TypeModule
+    uniteEnseignement: UniteEnseignement
+}
+
+type UniteEnseignement {
+    code: Int
+    domaine: String
+    responsable: String
+    credits: Int
+    semestre: Int
+}
+
+type QueryGraph {
+    getAllModules: [Module]
+    getModuleByMatricule(matricule: String!): Module
+    getModulesByUE(codeUE: Int!): [Module]
+    getModulesByType(type: TypeModule!): [Module]
+    getAllUnitesEnseignement: [UniteEnseignement]
+    getUEByCode(code: Int!): UniteEnseignement
+    getUEByDomaine(domaine: String!): [UniteEnseignement]
+    getUEBySemestre(semestre: Int!): [UniteEnseignement]
+}
+
+
+type MutationGraph {
+    createModule(
+        matricule: String!
+        nom: String!
+        coefficient: Int!
+        volumeHoraire: Int!
+        type: TypeModule!
+        codeUE: Int!
+    ): Module
+
+    updateModule(
+        matricule: String!
+        nom: String
+        coefficient: Int
+        volumeHoraire: Int
+        type: TypeModule
+        codeUE: Int
+    ): Module
+
+    deleteModule(matricule: String!): Boolean
+
+    createUniteEnseignement(
+        code: Int!
+        domaine: String!
+        responsable: String!
+        credits: Int!
+        semestre: Int!
+    ): UniteEnseignement
+
+    updateUniteEnseignement(
+        code: Int!
+        domaine: String
+        responsable: String
+        credits: Int
+        semestre: Int
+    ): UniteEnseignement
+
+    deleteUniteEnseignement(code: Int!): Boolean
+}
+
+
+schema {
+    query: QueryGraph
+    mutation: MutationGraph
+}
